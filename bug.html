@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<div lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bug</title>
+</head>
+    <body>
+<br>
+<h1>Bug List</h1>
+<a id="content">
+
+<?php
+//Establishing connection with our database
+include("connection.php");
+$sql="SELECT*FROM bugs";
+
+$result=mysqli_query($db,$sql);
+while($row=mysqli_fetch_assoc($result)){
+$bugTitle = $row['title'];
+$bugID = $row['ID'];
+echo '<a href="bug.php?id="'.$bugID.'>'.$bugTitle.'</a></br>';
+
+}
+?>
+    </div>
+</body>
+
+
+
+<h2>
+<div id="content">
+     <?php
+     //Establish connection with our database
+     include("connection.php");
+
+     //select everything from our bugs table where the ID is right
+     $sql="SELECT*FROM bugs WHERE bugs.ID = ".$_GET["id"];
+
+     //fetch our result from the database
+     $result=mysqli_query($db,$sql);
+     //we scan through each row in the response
+     $row = mysqli_fetch_assoc($result);
+     //get the title and id from the bug
+     $bugTitle = $row['title'];
+     $bugID = $row['ID'];
+     $bugDesc = $row['desc'];
+
+     echo "<h2>".$bugTitle."</h2>";
+     echo "<p>".$bugDesc."</p>";
+</div>
+
+    <br>
+    //select everything from our bugs table where the ID is right
+    $sql="SELECT*FROM coments WHERE bugID = ".$_GET["id"];
+
+    //fetch our result from the database
+    $result=mysqli_query($db,$sql);
+    //we scan through each row in the response
+    while($row = mysqli_fetch_assoc($result)){
+    //get the title and id from the bug
+    $commentTitle = $row['title'];
+    $comment = $row['comment'];
+    //write the link to the page
+
+    echo '<h3>'.$title.'</h3>';
+    echo '<p>'.$comment.'</p>';
+
+
+    ?>
+    </div>
+</body>
+</html>
